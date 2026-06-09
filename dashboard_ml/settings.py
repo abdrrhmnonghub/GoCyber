@@ -29,6 +29,10 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'apa-aja-dah')
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.up.railway.app',
+    'https://*.railway.app',
+]
 
 
 # Application definition
