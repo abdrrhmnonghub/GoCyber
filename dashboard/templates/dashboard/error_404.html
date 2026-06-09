@@ -1,0 +1,35 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Target Not Found</title>
+    <link rel="stylesheet" href="{% static 'css/error_404.css' %}" />
+  </head>
+  <body>
+    <div class="error-404-container">
+      <pre>
+█  █   ███  █  █          █   █  ███  █████    █████  ███  █   █ █   █ ████    
+█░ █░ █ ░░█ █░ █░    █    ██  █░█ ░░█  ░█░░░   █░░░░░█ ░░█ █░  █░██  █░█░░░█   
+█████░█░ ░█░█████░    ░   █░█ █░█░ ░█░  █░░░░  ████░░█░ ░█░█░░ █░█░█ █░█░░░█░  
+ ░░█░░█░░ █░░░░█░░   █ ░  █░░██░█░░ █░░ █░░    █░░░░ █░░ █░█░░ █░█░░██░█░░ █░░ 
+  ░█░░░███ ░░ ░█░░░   ░   █░░ █░░███ ░░ █░░    █░░░░░ ███ ░░███ ░█░░ █░████ ░░ 
+    ░░  ░░░ ░   ░░     ░   ░░  ░░ ░░░ ░  ░░     ░░     ░░░ ░ ░░░ ░░░  ░░░░░░ ░ 
+     ░   ░░░     ░          ░   ░  ░░░    ░      ░      ░░░   ░░░  ░   ░ ░░░░  
+</pre
+      >
+      <h2>[ ERROR: TARGET_NOT_FOUND ]</h2>
+      <p>
+        Alamat rute atau modul yang Anda minta tidak terdaftar di dalam kluster
+        jaringan server ini.<br />
+        Periksa kembali pengetikan endpoint atau kembali ke gerbang terminal
+        utama.
+      </p>
+
+      <a href="{% url 'home' %}" class="home-btn"
+        >< BACK TO ROOT INITIALIZATION ></a
+      >
+    </div>
+  </body>
+</html>

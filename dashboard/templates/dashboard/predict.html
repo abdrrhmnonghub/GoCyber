@@ -1,130 +1,134 @@
+{% extends "dashboard/base.html" %}
 {% load static %}
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sistem Prediksi Serangan</title>
-    <style>
-      body {
-        background-color: #000;
-        color: #0f0;
-        font-family: "Courier New", Courier, monospace;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-        margin: 0;
-      }
-      .form-container {
-        border: 1px solid #0f0;
-        padding: 30px;
-        box-shadow: 0 0 15px rgba(0, 255, 0, 0.2);
-        width: 400px;
-        background: rgba(0, 0, 0, 0.9);
-      }
-      .form-group {
-        margin-bottom: 15px;
-      }
-      label {
-        display: block;
-        margin-bottom: 5px;
-        font-size: 0.9em;
-      }
-      input[type="text"],
-      input[type="number"] {
-        width: 100%;
-        background: transparent;
-        border: 1px solid #0f0;
-        color: #0f0;
-        padding: 8px;
-        font-family: "Courier New", Courier, monospace;
-        outline: none;
-      }
-      input:focus {
-        box-shadow: 0 0 8px #0f0;
-      }
-      button {
-        width: 100%;
-        background: #0f0;
-        color: #000;
-        border: none;
-        padding: 10px;
-        font-weight: bold;
-        font-family: "Courier New", Courier, monospace;
-        cursor: pointer;
-        margin-top: 10px;
-      }
-      button:hover {
-        background: #fff;
-        color: #000;
-      }
-      .result-box {
-        margin-top: 20px;
-        border-top: 1px dashed #0f0;
-        padding-top: 15px;
-      }
-      .back-link {
-        display: block;
-        margin-top: 15px;
-        text-align: center;
-        color: #0f0;
-        text-decoration: none;
-        font-size: 0.8em;
-      }
-      .back-link:hover {
-        text-decoration: underline;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="form-container">
-      <h2>> INJECT_PARAMETERS</h2>
-      <p>Awaiting 5 input variables...</p>
+{% block title %}<title>Predict</title>{%endblock title %}
+{% block css_tambahan %}
+<link rel="stylesheet" href="{% static 'css/predict.css' %}" />
+{% endblock css_tambahan %}
+{% block content %}
+<canvas id="matrixCanvas"></canvas>
 
-      <form method="POST" action="{% url 'predict' %}">
-        {% csrf_token %}
+<div class="terminal-container">
+  <div class="terminal-header">
+    <div class="btn close"></div>
+    <div class="btn minimize"></div>
+    <div class="btn maximize"></div>
+    <div class="title">bash - root@GoCyber - /opt/pipeline/scan</div>
+  </div>
 
+  <div class="terminal-body">
+    <p>> ./initiate_scan.sh</p>
+    <p>
+      > [SYSTEM] Awaiting 8 parameter variables for machine learning pipeline...
+    </p>
+
+    <form method="POST" action="{% url 'predict' %}">
+      {% csrf_token %}
+      <div class="form-grid">
         <div class="form-group">
-          <label>Parameter 1 (Source Port):</label>
-          <input type="number" step="any" name="param1" required />
+          <label>[1] ENCRYPTION_USED:</label>
+          <select name="encryption_used" class="cyber-input" required>
+            <option value="AES">AES</option>
+            <option value="DES">DES</option>
+          </select>
         </div>
 
         <div class="form-group">
-          <label>Parameter 2 (Destination Port):</label>
-          <input type="number" step="any" name="param2" required />
+          <label>[2] BROWSER_TYPE:</label>
+          <select name="browser_type" class="cyber-input" required>
+            <option value="Chrome">Chrome</option>
+            <option value="Firefox">Firefox</option>
+            <option value="Edge">Edge</option>
+            <option value="Safari">Safari</option>
+            <option value="Unknown">Unknown</option>
+          </select>
         </div>
 
         <div class="form-group">
-          <label>Parameter 3 (Packet Length):</label>
-          <input type="number" step="any" name="param3" required />
+          <label>[3] PROTOCOL_TYPE:</label>
+          <select name="protocol_type" class="cyber-input" required>
+            <option value="TCP">TCP</option>
+            <option value="UDP">UDP</option>
+            <option value="ICMP">ICMP</option>
+          </select>
         </div>
 
         <div class="form-group">
-          <label>Parameter 4 (TCP Flags):</label>
-          <input type="number" step="any" name="param4" required />
+          <label>[4] LOGIN_ATTEMPTS:</label>
+          <input
+            type="number"
+            name="login_attempts"
+            class="cyber-input"
+            min="0"
+            required
+          />
         </div>
 
         <div class="form-group">
-          <label>Parameter 5 (Duration):</label>
-          <input type="number" step="any" name="param5" required />
+          <label>[5] FAILED_LOGINS:</label>
+          <input
+            type="number"
+            name="failed_logins"
+            class="cyber-input"
+            min="0"
+            required
+          />
         </div>
 
-        <button type="submit">EXECUTE_SCAN()</button>
-      </form>
+        <div class="form-group">
+          <label>[6] SESSION_DURATION (Sec):</label>
+          <input
+            type="number"
+            step="any"
+            name="session_duration"
+            class="cyber-input"
+            min="0"
+            required
+          />
+        </div>
 
-      {% if hasil_prediksi %}
-      <div class="result-box">
-        <p><strong>[ SYSTEM RESPONSE ]</strong></p>
-        <p>Status: {{ status }}</p>
-        <p style="color: #ff5f56">Output: {{ hasil_prediksi }}</p>
-        <p style="font-size: 0.8em; opacity: 0.7">
-          Data In: {{ parameter_masuk }}
-        </p>
+        <div class="form-group">
+          <label>[7] PACKET_SIZE (Bytes):</label>
+          <input
+            type="number"
+            name="network_packet_size"
+            class="cyber-input"
+            min="0"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>[8] IP_REPUTATION (0.0-1.0):</label>
+          <input
+            type="number"
+            step="0.01"
+            name="ip_reputation_score"
+            class="cyber-input"
+            min="0"
+            max="1"
+            required
+          />
+        </div>
+
+        <button type="submit" class="cyber-button">
+          EXECUTE_PIPELINE_SCAN()
+        </button>
       </div>
-      {% endif %}
+    </form>
 
-      <a href="{% url 'home' %}" class="back-link">< Return to Root Terminal</a>
+    {% if hasil_prediksi %}
+    <div class="result-box">
+      <p><strong>[ EVALUATION_COMPLETED ]</strong></p>
+      <p>STATUS_RESPONSE : {{ status }}</p>
+      <p class="alert">>> {{ hasil_prediksi }}</p>
+      <p style="color: #88ff88">{{ info_tambahan }}</p>
+      <p style="font-size: 0.85em; opacity: 0.7; word-break: break-all">
+        VECTOR_IN: {{ parameter_masuk }}
+      </p>
     </div>
-  </body>
-</html>
+    {% endif %}
+
+    <a href="{% url 'home' %}" class="back-link">< Return to Root Terminal</a>
+  </div>
+</div>
+{% endblock content %}

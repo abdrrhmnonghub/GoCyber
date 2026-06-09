@@ -4,9 +4,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Secure Access Gateway</title>
+    {% block title %}<title>GoCyber</title>{% endblock title %}
+    <link rel="icon" href="{% static "image/gocyber.png" %}" type="image/png">
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    {% block css_tambahan %}{% endblock css_tambahan %}
+    
   </head>
+  {% block content %}
   <body>
     <div style="display: none">{% csrf_token %}</div>
     <canvas id="matrixCanvas"></canvas>
@@ -69,5 +73,6 @@
     </div>
 
     <script src="{% static 'js/main.js' %}"></script>
+    {% endblock content %}
   </body>
 </html>

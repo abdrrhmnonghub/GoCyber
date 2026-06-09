@@ -1,0 +1,150 @@
+/* static/css/predict.css */
+
+/* Mewarisi Layout Terminal Utama */
+.terminal-container {
+  position: relative;
+  z-index: 1;
+  width: 80%;
+  max-width: 800px;
+  /* Dibuat auto agar kotak terminal memanjang mengikuti form */
+  height: auto;
+  max-height: 90vh;
+  background: rgba(0, 0, 0, 0.85);
+  border: 1px solid #0f0;
+  box-shadow: 0 0 15px rgba(0, 255, 0, 0.4);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header Window ala Mac/Linux */
+.terminal-header {
+  background: #111;
+  padding: 10px;
+  border-bottom: 1px solid #0f0;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.terminal-header .btn {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+}
+.close {
+  background: #ff5f56;
+}
+.minimize {
+  background: #ffbd2e;
+}
+.maximize {
+  background: #27c93f;
+}
+
+.terminal-header .title {
+  color: #0f0;
+  margin-left: 20px;
+  font-size: 0.9em;
+  opacity: 0.8;
+}
+
+/* Isi Terminal & Scrollbar */
+.terminal-body {
+  padding: 20px;
+  overflow-y: auto;
+  font-size: 1em;
+  text-shadow: 0 0 2px #0f0;
+}
+
+/* Membagi form jadi 2 kolom agar rapi */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-top: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  opacity: 0.9;
+}
+
+/* Styling Input & Dropdown */
+.cyber-input {
+  background: transparent;
+  border: 1px solid #0f0;
+  color: #0f0;
+  padding: 8px;
+  font-family: "Courier New", Courier, monospace;
+  outline: none;
+  transition: box-shadow 0.3s;
+}
+
+.cyber-input:focus {
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.7);
+  background: rgba(0, 255, 0, 0.05);
+}
+
+.cyber-input option {
+  background-color: #000;
+  color: #0f0;
+}
+
+/* Tombol Eksekusi */
+.cyber-button {
+  grid-column: span 2; /* Bikin tombol memenuhi lebar form */
+  background: #0f0;
+  color: #000;
+  border: none;
+  padding: 12px;
+  margin-top: 15px;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.1em;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+  transition: all 0.3s;
+}
+
+.cyber-button:hover {
+  background: #fff;
+  box-shadow: 0 0 20px #0f0;
+}
+
+/* Kotak Log Hasil Analisis */
+.result-box {
+  margin-top: 20px;
+  padding: 15px;
+  border: 1px dashed #0f0;
+  background: rgba(0, 255, 0, 0.05);
+}
+
+.result-box .alert {
+  color: #ff5f56;
+  font-weight: bold;
+  text-shadow: 0 0 5px #ff5f56;
+  font-size: 1.2em;
+}
+
+.back-link {
+  display: inline-block;
+  margin-top: 15px;
+  color: #0f0;
+  text-decoration: none;
+  opacity: 0.8;
+  transition: 0.3s;
+}
+
+.back-link:hover {
+  opacity: 1;
+  text-shadow: 0 0 8px #0f0;
+}
