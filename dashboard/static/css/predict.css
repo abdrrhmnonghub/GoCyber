@@ -148,3 +148,73 @@
   opacity: 1;
   text-shadow: 0 0 8px #0f0;
 }
+
+/* Styling untuk Output Hasil Prediksi */
+.result-header {
+  color: #0f0;
+  border-bottom: 1px dashed #0f0;
+  padding-bottom: 5px;
+  margin-bottom: 15px;
+}
+
+.highlight-box {
+  background: rgba(0, 255, 0, 0.1);
+  border-left: 4px solid #0f0;
+  padding: 10px;
+  margin-bottom: 15px;
+}
+
+.highlight-box p {
+  margin: 5px 0;
+}
+
+/* Styling Progress Bar Probabilitas */
+.bar-container {
+  margin-bottom: 15px;
+}
+
+.bar-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 8px;
+  font-size: 0.9em;
+}
+
+.bar-label {
+  width: 120px;
+  color: #88ff88;
+}
+
+.bar-bg {
+  flex-grow: 1;
+  height: 12px;
+  background: #111;
+  border: 1px solid #333;
+  margin: 0 10px;
+  position: relative;
+}
+
+.bar-fill {
+  height: 100%;
+  background: #0f0;
+  box-shadow: 0 0 8px #0f0;
+  transition: width 1s ease-in-out;
+}
+
+.bar-pct {
+  width: 50px;
+  text-align: right;
+  color: #fff;
+}
+
+/* Styling Ringkasan Input */
+.summary-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  font-size: 0.85em;
+  opacity: 0.8;
+  background: #050505;
+  padding: 10px;
+  border: 1px solid #333;
+}

@@ -10,10 +10,11 @@
     {% block css_tambahan %}{% endblock css_tambahan %}
     
   </head>
-  {% block content %}
+  
   <body>
     <div style="display: none">{% csrf_token %}</div>
     <canvas id="matrixCanvas"></canvas>
+    {% block content %}
 
     <div class="terminal-container">
       <div class="terminal-header">
@@ -71,8 +72,8 @@
         </div>
       </div>
     </div>
-
+     {% endblock content %}
     <script src="{% static 'js/main.js' %}"></script>
-    {% endblock content %}
+   
   </body>
 </html>

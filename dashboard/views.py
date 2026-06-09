@@ -74,13 +74,32 @@ def predict(request):
                 }
                 
                 hasil = attack_mapping.get(pred_label, "Unknown")
-                confidence = round(probs[pred_label] * 100, 2)
+                confidence_score = round(probs[pred_label] * 100, 2)
+
+                # Siapkan data probabilitas untuk SEMUA target (untuk Bar Chart)
+                all_probs = []
+                for i, p in enumerate(probs):
+                    all_probs.append({
+                        'threat': attack_mapping[i],
+                        'percentage': round(p * 100, 2)
+                    })
 
                 context = {
-                    'status': f'SUCCESS ({confidence}%)',
-                    'hasil_prediksi': f'Deteksi: {hasil}',
-                    'info_tambahan': f'Akurasi Dasar Model: {round(akurasi_training * 100, 2)}%',
-                    'parameter_masuk': [enkripsi, browser, protokol, login, login_failed, waktu_sesi, paket, ip_reputation]
+                    'status': 'SUCCESS',
+                    'hasil_prediksi': hasil,
+                    'confidence': confidence_score,
+                    'akurasi_model': round(akurasi_training * 100, 2),
+                    'semua_probabilitas': all_probs,
+                    'ringkasan_input': {
+                        'Encryption': enkripsi,
+                        'Browser': browser,
+                        'Protocol': protokol,
+                        'Login Attempts': login,
+                        'Failed Logins': login_failed,
+                        'Session Duration': waktu_sesi,
+                        'Packet Size': paket,
+                        'IP Reputation': ip_reputation
+                    }
                 }
 
         except Exception as e:

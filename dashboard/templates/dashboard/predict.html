@@ -5,7 +5,6 @@
 <link rel="stylesheet" href="{% static 'css/predict.css' %}" />
 {% endblock css_tambahan %}
 {% block content %}
-<canvas id="matrixCanvas"></canvas>
 
 <div class="terminal-container">
   <div class="terminal-header">
@@ -117,16 +116,40 @@
     </form>
 
     {% if hasil_prediksi %}
-    <div class="result-box">
-      <p><strong>[ EVALUATION_COMPLETED ]</strong></p>
-      <p>STATUS_RESPONSE : {{ status }}</p>
-      <p class="alert">>> {{ hasil_prediksi }}</p>
-      <p style="color: #88ff88">{{ info_tambahan }}</p>
-      <p style="font-size: 0.85em; opacity: 0.7; word-break: break-all">
-        VECTOR_IN: {{ parameter_masuk }}
-      </p>
-    </div>
-    {% endif %}
+            <div class="result-box" id="scan-result">
+                <h3 class="result-header">>> REPORT_GENERATED</h3>
+                
+                <div class="highlight-box">
+                    <p><strong>[1] DETECTED_THREAT : </strong> <span style="color: #ff5f56; font-size: 1.2em; font-weight: bold; text-transform: uppercase;">{{ hasil_prediksi }}</span></p>
+                    <p><strong>[2] BASE_ACCURACY   : </strong> <span style="color: #0f0;">{{ akurasi_model }}%</span></p>
+                    <p><strong>[3] CONFIDENCE_LEVEL: </strong> <span style="background-color: #003300; padding: 2px 5px; border: 1px solid #0f0; font-weight: bold;">{{ confidence }}%</span></p>
+                </div>
+
+                <p><strong>[4] THREAT_PROBABILITIES:</strong></p>
+                <div class="bar-container">
+                    {% for item in semua_probabilitas %}
+                    <div class="bar-row">
+                        <span class="bar-label">> {{ item.threat }}</span>
+                        <div class="bar-bg">
+                            <div class="bar-fill" style="width: {{ item.percentage }}%;"></div>
+                        </div>
+                        <span class="bar-pct">{{ item.percentage }}%</span>
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <p><strong>[5] INPUT_VECTOR_SUMMARY:</strong></p>
+                <div class="summary-grid">
+                    {% for key, value in ringkasan_input.items %}
+                        <div><span style="color: #88ff88;">{{ key }}</span>: {{ value }}</div>
+                    {% endfor %}
+                </div>
+            </div>
+            
+            <script>
+                document.getElementById('scan-result').scrollIntoView({ behavior: 'smooth' });
+            </script>
+        {% endif %}
 
     <a href="{% url 'home' %}" class="back-link">< Return to Root Terminal</a>
   </div>
